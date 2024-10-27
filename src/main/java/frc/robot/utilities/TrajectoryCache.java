@@ -165,12 +165,12 @@ public class TrajectoryCache {
         );     
 
         cache[TrajectoryType.barrel.value] = new TrajectoryFacing(
-            new Rotation2d(0.0), // Start facing +X direction
-            new Rotation2d(180.0), //End facing -X direction
+            new Rotation2d(0), // Start facing +X direction
+            new Rotation2d(0), //End facing -X direction
             calcTrajectory("Barrel", 0.4, 0.4, 
-            new Pose2d(0, 0, new Rotation2d(0.0)),
-            List.of(),
-            new Pose2d(3.0, 0, new Rotation2d(Math.toRadians(0.0)))
+            new Pose2d(1.0922, 2.286, new Rotation2d(0.0)),
+            List.of(new Translation2d(3.2258, 0.014)),
+            new Pose2d(0.9, 2.286, new Rotation2d(Math.toRadians(0.0)))
             )
         );
         

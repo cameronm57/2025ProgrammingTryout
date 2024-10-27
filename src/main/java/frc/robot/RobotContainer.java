@@ -149,7 +149,9 @@ public class RobotContainer {
             )
           ),
           driveTrain, log));
-
+    SmartDashboard.putData("Barrel Trajectory", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.barrel.value], driveTrain, log));
+    // TODO: test above and see if parameters are ok
+    
     // Testing for balancing
     // SmartDashboard.putData("Drive Smart Balance", new SequentialCommandGroup(new ResetPose,new SmartBalance(0.5, 0, driveTrain)));
     // SmartDashboard.putData("Test Balance", new SequentialCommandGroup(new DriveUpChargingStation(-TrajectoryConstants.ChargeStationVelocity, .889, driveTrain, log), new ActiveBalance(driveTrain, log)));
