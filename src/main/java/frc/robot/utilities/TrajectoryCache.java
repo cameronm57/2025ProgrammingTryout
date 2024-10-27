@@ -23,12 +23,13 @@ import frc.robot.Constants.SwerveConstants;
 public class TrajectoryCache {
     private FileLog log;
    
-    private static int trajectoryCount = 2;
+    private static int trajectoryCount = 3;
     public TrajectoryFacing[] cache = new TrajectoryFacing[trajectoryCount];        // array of trajectories
 
     public enum TrajectoryType {
         test(0),
-        testCurve(1);
+        testCurve(1),
+        barrel(2);
         // CenterBalanceBlue(2),
         // CenterBalanceRed(3),
         // LeaveCommunity(4),
@@ -162,6 +163,16 @@ public class TrajectoryCache {
                 new Pose2d(3, 3, new Rotation2d(Math.toRadians(90.0)))
             )
         );     
+
+        cache[TrajectoryType.barrel.value] = new TrajectoryFacing(
+            new Rotation2d(0.0), // Start facing +X direction
+            new Rotation2d(180.0), //End facing -X direction
+            calcTrajectory("Barrel", 0.4, 0.4, 
+            new Pose2d(0, 0, new Rotation2d(0.0)),
+            List.of(),
+            new Pose2d(3.0, 0, new Rotation2d(Math.toRadians(0.0)))
+            )
+        );
         
         // cache[TrajectoryType.CenterBalanceBlue.value] = new TrajectoryFacing(
         //     new Rotation2d(Math.PI),            // Start facing driver station
