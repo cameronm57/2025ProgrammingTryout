@@ -42,7 +42,7 @@
   {
     "name": "/Preferences/problemSubsystem",
     "type": "string",
-    "value": "RobotPreferences, CAN Bus",
+    "value": "CAN Bus",
     "properties": {
       "persistent": true
     }

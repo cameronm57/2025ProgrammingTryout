@@ -23,17 +23,17 @@ import frc.robot.Constants.SwerveConstants;
 public class TrajectoryCache {
     private FileLog log;
    
-    private static int trajectoryCount = 3;
+    private static int trajectoryCount = 4;
     public TrajectoryFacing[] cache = new TrajectoryFacing[trajectoryCount];        // array of trajectories
 
     public enum TrajectoryType {
         test(0),
         testCurve(1),
-        barrel(2);
+        barrel(2),
         // CenterBalanceBlue(2),
         // CenterBalanceRed(3),
         // LeaveCommunity(4),
-        // LeftOuterOneConeBalanceBlue(5),
+        LeftOuterOneConeBalanceBlue(3);
         // LeftOuterOneConeBalanceRed(6),
         // MiddleOuterOneConeBalanceBlue(7),
         // MiddleOuterOneConeBalanceRed(8),
@@ -213,15 +213,15 @@ public class TrajectoryCache {
         //     )
         // );
 
-        // cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("LeftOuterOneConeBalanceBlue", 0.4, 0.4, 
-        //         new Pose2d(1.75895, 4.921, Rotation2d.fromDegrees(-15)),
-        //         List.of(new Translation2d(5.907, 3.846)),
-        //         new Pose2d(3.897, 3.384, Rotation2d.fromDegrees(-115))
-        //     )
-        // ); 
+        cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value] = new TrajectoryFacing(
+            new Rotation2d(Math.PI),            // Start facing driver station
+            new Rotation2d(Math.PI),            // End facing driver station
+            calcTrajectory("LeftOuterOneConeBalanceBlue", 0.4, 0.4, 
+                new Pose2d(1.75895, 4.921, Rotation2d.fromDegrees(-15)),
+                List.of(new Translation2d(5.907, 3.846)),
+                new Pose2d(3.897, 3.384, Rotation2d.fromDegrees(-115))
+            )
+        ); 
 
         // cache[TrajectoryType.LeftOuterOneConeBalanceRed.value] = new TrajectoryFacing(
         //     new Rotation2d(Math.PI),            // Start facing driver station
