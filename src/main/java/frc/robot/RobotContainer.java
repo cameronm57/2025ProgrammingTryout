@@ -53,7 +53,7 @@ import frc.robot.utilities.TrajectoryCache.TrajectoryType;
  */
 public class RobotContainer {
   // Define robot key utilities (DO THIS FIRST)
-  private final FileLog log = new FileLog("J1");
+  private final FileLog log = new FileLog("J2");
   private final AllianceSelection allianceSelection = new AllianceSelection(log);
   private final Compressor compressor = new Compressor(PneumaticsModuleType.REVPH);
   private final Field field = new Field(allianceSelection, log);
@@ -129,35 +129,35 @@ public class RobotContainer {
 
     // Testing for trajectories
     Rotation2d rotationFront = new Rotation2d();          // Facing away from drivers
-    SmartDashboard.putData("Drive Trajectory Relative", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, 
-        trajectoryCache.cache[TrajectoryType.test.value], driveTrain, log));
-    SmartDashboard.putData("Drive Trajectory Curve Relative", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, 
-        trajectoryCache.cache[TrajectoryType.testCurve.value], driveTrain, log));
-    SmartDashboard.putData("Drive Trajectory Absolute", new DriveTrajectory(CoordType.kAbsolute, StopType.kBrake, 
-        trajectoryCache.cache[TrajectoryType.test.value], driveTrain, log));  
-    SmartDashboard.putData("Drive Trajectory S-Fwd Relative", new DriveTrajectory(
-          CoordType.kRelative, StopType.kBrake,
-          new TrajectoryFacing(rotationFront, rotationFront,
-            TrajectoryCache.calcTrajectory( "S-Fwd", 0.4, 0.4,
-              new Pose2d(0, 0, new Rotation2d(0)), 
-              List.of(
-                new Translation2d(1.0, 0.5),
-                new Translation2d(2.0, -0.5)
-              ), 
-              new Pose2d(3.0, 0, new Rotation2d(0)), 
-              log
-            )
-          ),
-          driveTrain, log));
-    SmartDashboard.putData("LeftOuterOneConeBalanceBlue", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value], driveTrain, log));
+    // SmartDashboard.putData("Drive Trajectory Relative", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, 
+    //     trajectoryCache.cache[TrajectoryType.test.value], driveTrain, log));
+    // SmartDashboard.putData("Drive Trajectory Curve Relative", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, 
+    //     trajectoryCache.cache[TrajectoryType.testCurve.value], driveTrain, log));
+    // SmartDashboard.putData("Drive Trajectory Absolute", new DriveTrajectory(CoordType.kAbsolute, StopType.kBrake, 
+    //     trajectoryCache.cache[TrajectoryType.test.value], driveTrain, log));  
+    // SmartDashboard.putData("Drive Trajectory S-Fwd Relative", new DriveTrajectory(
+    //       CoordType.kRelative, StopType.kBrake,
+          // new TrajectoryFacing(rotationFront, rotationFront,
+          //   TrajectoryCache.calcTrajectory( "S-Fwd", 0.4, 0.4,
+          //     new Pose2d(0, 0, new Rotation2d(0)), 
+          //     List.of(
+          //       new Translation2d(1.0, 0.5),
+          //       new Translation2d(2.0, -0.5)
+          //     ), 
+          //     new Pose2d(3.0, 0, new Rotation2d(0)), 
+          //     log
+          //   )
+          // ),
+          // driveTrain, log));
+    // SmartDashboard.putData("LeftOuterOneConeBalanceBlue", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value], driveTrain, log));
     // ^ - test trajectory that probably works to figure out how to plot them
     SmartDashboard.putData("Barrel Trajectory", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.barrel.value], driveTrain, log));
-    // TODO: test above and see if parameters are ok
-    
+    //TODO: heres the trajectory
+
     // Testing for balancing
     // SmartDashboard.putData("Drive Smart Balance", new SequentialCommandGroup(new ResetPose,new SmartBalance(0.5, 0, driveTrain)));
     // SmartDashboard.putData("Test Balance", new SequentialCommandGroup(new DriveUpChargingStation(-TrajectoryConstants.ChargeStationVelocity, .889, driveTrain, log), new ActiveBalance(driveTrain, log)));
-    SmartDashboard.putData("Test Balance", new ActiveBalance(driveTrain, log));
+    // SmartDashboard.putData("Test Balance", new ActiveBalance(driveTrain, log));
 
     // Testing for autos
     // SmartDashboard.putData("Example Auto S-Shape", new ExampleAuto(driveTrain));

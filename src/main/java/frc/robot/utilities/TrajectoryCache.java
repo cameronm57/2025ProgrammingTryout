@@ -12,7 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-
+import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SwerveConstants;
 
@@ -23,23 +23,11 @@ import frc.robot.Constants.SwerveConstants;
 public class TrajectoryCache {
     private FileLog log;
    
-    private static int trajectoryCount = 4;
+    private static int trajectoryCount = 1;
     public TrajectoryFacing[] cache = new TrajectoryFacing[trajectoryCount];        // array of trajectories
 
     public enum TrajectoryType {
-        test(0),
-        testCurve(1),
-        barrel(2),
-        // CenterBalanceBlue(2),
-        // CenterBalanceRed(3),
-        // LeaveCommunity(4),
-        LeftOuterOneConeBalanceBlue(3);
-        // LeftOuterOneConeBalanceRed(6),
-        // MiddleOuterOneConeBalanceBlue(7),
-        // MiddleOuterOneConeBalanceRed(8),
-        // RightOuterOneConeBalanceBlue(9),
-        // RightOuterOneConeBalanceRed(10),
-        // Pickup(11);
+        barrel(0);
 
         @SuppressWarnings({"MemberName", "PMD.SingularField"})
         public final int value;
@@ -144,150 +132,28 @@ public class TrajectoryCache {
     public TrajectoryCache(FileLog log){
         this.log = log;
 
-        cache[TrajectoryType.test.value] = new TrajectoryFacing(
-            new Rotation2d(0.0),            // Start facing +X direction
-            new Rotation2d(0.0),            // End facing +X direction
-            calcTrajectory("Test", 0.4, 0.4, 
-                new Pose2d(0, 0, new Rotation2d(0.0)),
-                List.of(),
-                new Pose2d(3.0, 0, new Rotation2d(Math.toRadians(0.0)))
-            )
-        );
-
-        cache[TrajectoryType.testCurve.value] = new TrajectoryFacing(
-            new Rotation2d(0.0),            // Start facing +X direction
-            new Rotation2d(0.0),            // End facing +X direction
-            calcTrajectory("Test Curve", 0.4, 0.4, 
-                new Pose2d(0, 0, new Rotation2d(0.0)),
-                List.of(),
-                new Pose2d(3, 3, new Rotation2d(Math.toRadians(90.0)))
-            )
-        );     
-
         cache[TrajectoryType.barrel.value] = new TrajectoryFacing(
             new Rotation2d(0), // Start facing +X direction
             new Rotation2d(0), //End facing -X direction
             calcTrajectory("Barrel", 0.4, 0.4, 
-            new Pose2d(1.0922, 2.286, new Rotation2d(0.0)),
-            List.of(new Translation2d(3.2258, 0.014)),
-            new Pose2d(0.9, 2.286, new Rotation2d(Math.toRadians(0.0)))
+            new Pose2d(Units.inchesToMeters(43), Units.inchesToMeters(90), new Rotation2d(0.0)),
+            List.of(
+                    new Translation2d(Units.inchesToMeters(130), Units.inchesToMeters(90)),
+                    new Translation2d(Units.inchesToMeters(190), Units.inchesToMeters(60)),
+                    new Translation2d(Units.inchesToMeters(150), Units.inchesToMeters(20)),
+                    new Translation2d(Units.inchesToMeters(110), Units.inchesToMeters(60)),
+                    new Translation2d(Units.inchesToMeters(130), Units.inchesToMeters(105)), //should have gone around first barrel by this point
+                    new Translation2d(Units.inchesToMeters(210), Units.inchesToMeters(105)),
+                    new Translation2d(Units.inchesToMeters(270), Units.inchesToMeters(85)),
+                    new Translation2d(Units.inchesToMeters(280), Units.inchesToMeters(160)),
+                    new Translation2d(Units.inchesToMeters(200), Units.inchesToMeters(160)),
+                    new Translation2d(Units.inchesToMeters(220), Units.inchesToMeters(90)), //should have gone around second barrel by this point
+                    new Translation2d(Units.inchesToMeters(300), Units.inchesToMeters(20)),
+                    new Translation2d(Units.inchesToMeters(340), Units.inchesToMeters(90))
+                    ),
+            new Pose2d(0.9, 2.286, new Rotation2d(0.0))
             )
         );
-        
-        // cache[TrajectoryType.CenterBalanceBlue.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("CenterBalanceBlue", 0.4, 0.4, 
-        //         // Initial travel in +X direction
-        //         new Pose2d(1.821942, 2.748026, new Rotation2d(0)),
-        //         List.of(),
-        //         // Go straight onto platform
-        //         new Pose2d(4.25, 2.748026, Rotation2d.fromDegrees(0))
-        //         // new Pose2d(3.821942, 2.748026, Rotation2d.fromDegrees(0))
-        //         // new Pose2d(5.75895, 2.707, new Rotation2d(0))
-        //     )
-        // );    
-
-        // cache[TrajectoryType.CenterBalanceRed.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("CenterBalanceRed", 0.4, 0.4,  //Change this to Red side values
-        //         // Initial travel in +X direction
-        //         new Pose2d(1.75895, 5.307, new Rotation2d(0)), //CHECK Y VALUES
-        //         List.of(),
-        //         // Go straight onto platform
-        //         new Pose2d(4.25, 5.307, Rotation2d.fromDegrees(0))
-        //         // new Pose2d(5.75895, 5.307, new Rotation2d(0))  //CHECK Y VALUES
-        //     )
-        // );    
-
-        // cache[TrajectoryType.LeaveCommunity.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("LeaveCommunity", 0.4, 0.4, 
-        //         // Start at the origin, inital travel away from the driver station
-        //         new Pose2d(0.0, 0.0, new Rotation2d(0)),
-        //         List.of(
-        //         ),
-        //         new Pose2d(3.168, 0, new Rotation2d(0))
-        //     )
-        // );
-
-        cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value] = new TrajectoryFacing(
-            new Rotation2d(Math.PI),            // Start facing driver station
-            new Rotation2d(Math.PI),            // End facing driver station
-            calcTrajectory("LeftOuterOneConeBalanceBlue", 0.4, 0.4, 
-                new Pose2d(1.75895, 4.921, Rotation2d.fromDegrees(-15)),
-                List.of(new Translation2d(5.907, 3.846)),
-                new Pose2d(3.897, 3.384, Rotation2d.fromDegrees(-115))
-            )
-        ); 
-
-        // cache[TrajectoryType.LeftOuterOneConeBalanceRed.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("LeftOuterOneConeBalanceRed", 0.4, 0.4, 
-        //         new Pose2d(1.75895, 3.093, Rotation2d.fromDegrees(15)),
-        //         List.of(new Translation2d(5.907, 4.168)),
-        //         new Pose2d(3.897, 4.63, Rotation2d.fromDegrees(115))
-        //     )
-        // ); 
-
-        // cache[TrajectoryType.MiddleOuterOneConeBalanceBlue.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("MiddleOuterOneConeBalanceBlue", 0.4, 0.4, 
-        //         new Pose2d(1.821942, 2.748026, new Rotation2d(0)),
-        //         List.of(new Translation2d(6, 2.748026)),
-        //         // List.of(new Translation2d(5.767, 3.266)),
-        //         new Pose2d(4.25, 2.748026, Rotation2d.fromDegrees(180))
-
-        //         // new Pose2d(4.25, 2.748026, Rotation2d.fromDegrees(180))
-        //         // new Pose2d(3.897, 2.761, Rotation2d.fromDegrees(-160))
-        //     )
-        // ); 
-
-        // cache[TrajectoryType.MiddleOuterOneConeBalanceRed.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("MiddleOuterOneConeBalanceRed", 0.4, 0.4, 
-        //         new Pose2d(1.75895, 4.705, new Rotation2d(0)),
-        //         List.of(new Translation2d(5.767, 4.748)),
-        //         new Pose2d(3.897, 5.253, Rotation2d.fromDegrees(160))
-        //     )
-        // ); 
-
-        // cache[TrajectoryType.RightOuterOneConeBalanceBlue.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("RightOuterOneConeBalanceBlue", 0.4, 0.4, 
-        //         new Pose2d(1.75895, 0.381, Rotation2d.fromDegrees(10)),
-        //         List.of(new Translation2d(6.304, 1.697)),
-        //         new Pose2d(3.93, 2.116, Rotation2d.fromDegrees(170))
-        //     )
-        // ); 
-
-        // cache[TrajectoryType.RightOuterOneConeBalanceRed.value] = new TrajectoryFacing(
-        //     new Rotation2d(Math.PI),            // Start facing driver station
-        //     new Rotation2d(Math.PI),            // End facing driver station
-        //     calcTrajectory("RightOuterOneConeBalanceRed", 0.4, 0.4, 
-        //         new Pose2d(1.75895, 7.633, Rotation2d.fromDegrees(-15)),
-        //         List.of(new Translation2d(6.304, 6.317)),
-        //         new Pose2d(3.93, 5.898, Rotation2d.fromDegrees(-105))
-        //     )
-        // ); 
-
-        // cache[TrajectoryType.Pickup.value] = new TrajectoryFacing(
-        //     new Rotation2d(0.0),            // Start facing +X direction
-        //     new Rotation2d(0.0),            // End facing +X direction
-        //     calcTrajectory("Pickup", 0.4, 0.4, 
-        //         new Pose2d(0.0, 0.0, new Rotation2d(0)),
-        //         List.of(),
-        //         // new Pose2d(-6.7, 0, new Rotation2d(Math.PI))
-        //         // new Pose2d(0, 0, new Rotation2d(0)),
-        //         new Pose2d(-3, 0, new Rotation2d(Math.PI))
-        //     )
-        // ); 
     }
 
 }
