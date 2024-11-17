@@ -151,7 +151,7 @@ public class TrajectoryCache {
                     new Translation2d(Units.inchesToMeters(300), Units.inchesToMeters(20)),
                     new Translation2d(Units.inchesToMeters(340), Units.inchesToMeters(90))
                     ),
-            new Pose2d(0.9, 2.286, new Rotation2d(0.0))
+            new Pose2d(Units.inchesToMeters(43), Units.inchesToMeters(90), new Rotation2d(0.0))
             )
         );
     }
