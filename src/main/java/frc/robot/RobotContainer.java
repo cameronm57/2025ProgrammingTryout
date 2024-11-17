@@ -151,7 +151,7 @@ public class RobotContainer {
           // driveTrain, log));
     // SmartDashboard.putData("LeftOuterOneConeBalanceBlue", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.LeftOuterOneConeBalanceBlue.value], driveTrain, log));
     // ^ - test trajectory that probably works to figure out how to plot them
-    SmartDashboard.putData("Barrel Trajectory", new DriveTrajectory(CoordType.kRelative, StopType.kBrake, trajectoryCache.cache[TrajectoryType.barrel.value], driveTrain, log));
+    SmartDashboard.putData("Barrel Trajectory", new DriveTrajectory(CoordType.kAbsoluteResetPose, StopType.kBrake, trajectoryCache.cache[TrajectoryType.barrel.value], driveTrain, log));
     //TODO: heres the trajectory
 
     // Testing for balancing
